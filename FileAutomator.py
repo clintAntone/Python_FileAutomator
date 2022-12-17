@@ -109,8 +109,8 @@ class MoverHandler(FileSystemEventHandler):
         logging.info(f"Moved installer file: {name}")
 
   def check_script_files(self, entry, name):
-    for script_extensions in script_extensions:
-      if name.endswith(script_extensions) or name.endswith(script_extensions.upper()):
+    for script_extension in script_extensions:
+      if name.endswith(script_extension) or name.endswith(script_extension.upper()):
         move_file(dest_dir_bash, entry, name)
         logging.info(f"Moved script file: {name}")
 
