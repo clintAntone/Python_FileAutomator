@@ -24,14 +24,16 @@ dest_dir_video = "/Users/COLLABERA/Downloads/Downloaded Video"
 dest_dir_image = "/Users/COLLABERA/Downloads/Downloaded Image"
 dest_dir_installer = "/Users/COLLABERA/Downloads/Applications"
 dest_dir_documents = "/Users/COLLABERA/Downloads/Downloaded Documents"
+dest_dir_bash = "/Users/COLLABERA/Downloads/Bash"
 
 #Next we will define the supported extension types of the files in the source directory
 #Feel free to add additional extension names you wanted to be included
 audio_extensions = [".m4a",".mp3",".wav",".wma",".aac"]
-installer_extensions = [".exe",".msi"]
+installer_extensions = [".exe",".msi",".apk"]
 image_extensions = [".jpg",".jpeg",".jpe",".png",".gif",".webp",".psd",".svg",".eps",".ico"]
 video_extensions = [".webm",".mpg",".mp2",".mpeg",".mpe",".ogg",".mp4",".mp4v",".m4v",".avi",".wmv",".mov",".flv"]
-document_extensions = [".doc",".docx",".odt",".pdf",".xls",".xlsx",".ppt",".pptx",".txt",".csv",".json"]
+document_extensions = [".doc",".docx",".pub",".odt",".pdf",".xls",".xlsx",".ppt",".pptx",".txt",".csv",".json",".zip",".json"]
+script_extensions = [".sh",".py"]
 
 
 #Now we will create a function to check if the file that we wanted to move is unique
@@ -68,6 +70,7 @@ class MoverHandler(FileSystemEventHandler):
         self.check_image_files(entry, name)
         self.check_document_files(entry, name)
         self.check_installer_files(entry, name)
+        self.check_script_files(entry, name)
 
   #This will loop to every extensions that you have provided
   #check if the name in the parameters contains the extension in the loop
@@ -105,6 +108,11 @@ class MoverHandler(FileSystemEventHandler):
         move_file(dest_dir_installer, entry, name)
         logging.info(f"Moved installer file: {name}")
 
+  def check_script_files(self, entry, name):
+    for script_extensions in script_extensions:
+      if name.endswith(script_extensions) or name.endswith(script_extensions.upper()):
+        move_file(dest_dir_bash, entry, name)
+        logging.info(f"Moved script file: {name}")
 
 #Now we will create the main
 #In this main method, we have defined the path on where our automator will look into
